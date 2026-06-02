@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QazCode - Негіздер Сабақтары</title>
+    <link rel="stylesheet" href="../css/theme.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .tutorial-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .lesson {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .lesson h2 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .lesson h3 {
+            color: var(--text-dark);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .code-block {
+            background: var(--editor-bg);
+            color: var(--editor-text);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .example-output {
+            background: #f0f0f0;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--success-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        .tip {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--info-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: var(--info-color);
+        }
+
+        .warning {
+            background: rgba(243, 156, 18, 0.1);
+            border-left: 4px solid var(--warning-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            color: var(--warning-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        table th {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .nav-lessons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-lessons a {
+            padding: 10px 20px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .nav-lessons a:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .nav-lessons a.active {
+            background: var(--primary-dark);
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container">
+            <a href="../index.html" class="logo">🇰🇿 QazCode</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">🏠 Басты</a></li>
+                <li><a href="../playground.html">🎮 Ойындық</a></li>
+                <li><a href="basics.html">📚 Сабақтар</a></li>
+                <li><a href="../docs/language-spec.md">📋 Құжаттау</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div style="background: var(--primary-color); color: white; padding: 2rem; text-align: center;">
+            <div class="container">
+                <h1 style="margin-bottom: 0.5rem;">📚 QazCode Негіздер Сабақтары</h1>
+                <p>Қазақша бағдарламалау тілінде қадамдарын шындығында үйреніңіз</p>
+            </div>
+        </div>
+
+        <div class="tutorial-container">
+            <!-- 导航 -->
+            <div class="nav-lessons">
+                <a href="#lesson1" class="active">1. Бірінші Бағдарлама</a>
+                <a href="#lesson2">2. Айнымалылар</a>
+                <a href="#lesson3">3. Арифметика</a>
+                <a href="#lesson4">4. Шартта</a>
+                <a href="#lesson5">5. Мәтіндік Өндіктеме</a>
+            </div>
+
+            <!-- Сабақ 1 -->
+            <div class="lesson" id="lesson1">
+                <h2>1️⃣ Бірінші Бағдарлама - Hello World</h2>
+
+                <h3>Бұл сабақта үйренеңіз:</h3>
+                <ul>
+                    <li>Бағдарлама қалай іске қосылатын</li>
+                    <li>Мәтінді басып шығару</li>
+                    <li>QazCode синтаксисінің негіздері</li>
+                </ul>
+
+                <h3>Ең сәл бағдарлама:</h3>
+                <div class="code-block">
+басып_шығару("Сәлем, Әлем!");
+                </div>
+
+                <h3>Нәтиже:</h3>
+                <div class="example-output">
+> Сәлем, Әлем!
+                </div>
+
+                <h3>Түсініктеме:</h3>
+                <p><strong>басып_шығару()</strong> - бұл функция мәтінді экранға жазады. Мәтін <strong>қос тырнақта</strong> немесе <strong>бір тырнақта</strong> жазылуы керек.</p>
+
+                <div class="tip">
+                    💡 <strong>Сөндіс:</strong> Әрбір команда өндіктемесінен аяқталады (;)
+                </div>
+
+                <h3>Өзіңіз спробаңыз:</h3>
+                <p>Өндіктеме өзгертіп, өзіңіздің сәлемінді жазыңыз:</p>
+                <div class="code-block">
+басып_шығару("Сәлем, [Сіздің атыңыз]!");
+                </div>
+            </div>
+
+            <!-- Сабақ 2 -->
+            <div class="lesson" id="lesson2">
+                <h2>2️⃣ Айнымалылар - Деректерді Сақтау</h2>
+
+                <h3>Айнымалы дегеніміз не?</h3>
+                <p>Айнымалы - бұл деректерді сақтайтын контейнер. Оны қоршетіктің ішіндегі сандарды, мәтінді немесе басқа мәнділіктерді сақтау үшін қолданамыз.</p>
+
+                <h3>Айнымалы құру:</h3>
+                <div class="code-block">
+х = 10;
+у = 20;
+атың = "Аман";
+                </div>
+
+                <h3>Айнымалы пайдалану:</h3>
+                <div class="code-block">
+х = 5;
+у = 10;
+басып_шығару(х);
+басып_шығару(у);
+                </div>
+
+                <h3>Нәтиже:</h3>
+                <div class="example-output">
+> 5
+> 10
+                </div>
+
+                <h3>Айнымалы түрлері:</h3>
+                <table>
+                    <tr>
+                        <th>Түрі</th>
+                        <th>Мысал</th>
+                        <th>Түсініктеме</th>
+                    </tr>
+                    <tr>
+                        <td>Сан (Number)</td>
+                        <td>х = 42;</td>
+                        <td>Бүтін немесе ондық сандар</td>
+                    </tr>
+                    <tr>
+                        <td>Мәтін (String)</td>
+                        <td>х = "Сәлем";</td>
+                        <td>Мәтін қос немесе бір тырнақта</td>
+                    </tr>
+                </table>
+
+                <div class="warning">
+                    ⚠️ <strong>Ескергіңіз:</strong> Айнымалы аты сан бірінші өндіктемесінен басталмауы керек. Мысалы: <code>1х = 5;</code> - дұрыс емес!
+                </div>
+            </div>
+
+            <!-- Сабақ 3 -->
+            <div class="lesson" id="lesson3">
+                <h2>3️⃣ Арифметикалық Операциялар</h2>
+
+                <h3>Негіздегі операторлар:</h3>
+                <table>
+                    <tr>
+                        <th>Оператор</th>
+                        <th>Теңдеуі</th>
+                        <th>Мысал</th>
+                    </tr>
+                    <tr>
+                        <td>+</td>
+                        <td>Қосу</td>
+                        <td>х = 5 + 3;</td>
+                    </tr>
+                    <tr>
+                        <td>-</td>
+                        <td>Ағысындау</td>
+                        <td>х = 5 - 3;</td>
+                    </tr>
+                    <tr>
+                        <td>*</td>
+                        <td>Көбейту</td>
+                        <td>х = 5 * 3;</td>
+                    </tr>
+                    <tr>
+                        <td>/</td>
+                        <td>Бөлу</td>
+                        <td>х = 6 / 3;</td>
+                    </tr>
+                </table>
+
+                <h3>Практикалық мысал:</h3>
+                <div class="code-block">
+# Сандарды анықтау
+а = 20;
+б = 4;
+
+# Операциялар орындау
+басып_шығару(а + б);  # 24
+басып_шығару(а - б);  # 16
+басып_шығару(а * б);  # 80
+басып_шығару(а / б);  # 5
+                </div>
+
+                <h3>Нәтиже:</h3>
+                <div class="example-output">
+> 24
+> 16
+> 80
+> 5
+                </div>
+
+                <div class="tip">
+                    💡 <strong>Сөндіс:</strong> Математика ережелері әрі жұмыс істейді - алдымен көбейту және бөлу, содан кейін қосу және ағысындау.
+                </div>
+            </div>
+
+            <!-- Сабақ 4 -->
+            <div class="lesson" id="lesson4">
+                <h2>4️⃣ Шартты Операторлар (if)</h2>
+
+                <h3>Шартты оператор дегеніміз не?</h3>
+                <p>Шартты оператор белгілі бір шарт сұннағы кодты орындау үшін қолданылады.</p>
+
+                <h3>Синтаксис:</h3>
+                <div class="code-block">
+егер [шарт]:
+    [орындалатын код]
+                </div>
+
+                <h3>Салыстыру операторлары:</h3>
+                <table>
+                    <tr>
+                        <th>Оператор</th>
+                        <th>Теңдеуі</th>
+                        <th>Мысал</th>
+                    </tr>
+                    <tr>
+                        <td>&gt;</td>
+                        <td>Үлкен</td>
+                        <td>х &gt; 5</td>
+                    </tr>
+                    <tr>
+                        <td>&lt;</td>
+                        <td>Аз</td>
+                        <td>х &lt; 5</td>
+                    </tr>
+                    <tr>
+                        <td>==</td>
+                        <td>Теңді</td>
+                        <td>х == 5</td>
+                    </tr>
+                    <tr>
+                        <td>!=</td>
+                        <td>Теңді емес</td>
+                        <td>х != 5</td>
+                    </tr>
+                </table>
+
+                <h3>Мысал:</h3>
+                <div class="code-block">
+балл = 85;
+егер балл >= 80: басып_шығару("Өте жақсы!");
+
+х = 5;
+егер х > 10: басып_шығару("х үлкен");
+егер х < 10: басып_шығару("х аз");
+                </div>
+
+                <div class="warning">
+                    ⚠️ <strong>Ескергіңіз:</strong> Теңділік проверкасы үшін <code>==</code> қолданыңыз, бір <code>=</code> емес! Бір <code>=</code> - айнымалы анықтамасы.
+                </div>
+            </div>
+
+            <!-- Сабақ 5 -->
+            <div class="lesson" id="lesson5">
+                <h2>5️⃣ Мәтіндік Өндіктеме</h2>
+
+                <h3>Мәтіндік қосу:</h3>
+                <p>Екі мәтінді қоса алуға болады <code>+</code> операторының көмегімен:</p>
+
+                <div class="code-block">
+аты = "Аман";
+өндіктеме = " Сәлем";
+толық = аты + өндіктеме;
+басып_шығару(толық);
+                </div>
+
+                <h3>Нәтиже:</h3>
+                <div class="example-output">
+> Аман Сәлем
+                </div>
+
+                <h3>Сан және мәтінді қосу:</h3>
+                <div class="code-block">
+аты = "Балл: ";
+балл = 95;
+басып_шығару(аты + балл);
+                </div>
+
+                <h3>Нәтиже:</h3>
+                <div class="example-output">
+> Балл: 95
+                </div>
+
+                <div class="tip">
+                    💡 <strong>Сөндіс:</strong> Мәтін арасындағы бос аралықты ұмытпаңыз! "<code> </code>" бас аралық мәтіні ретінде қолданыңыз.
+                </div>
+            </div>
+
+            <!-- Қорытындысы -->
+            <div class="lesson" style="background: var(--primary-color); color: white;">
+                <h2 style="border-bottom-color: white; color: white;">🎉 Құтттықтау!</h2>
+                <p>Сіз QazCode-ның негіздерін үйрендіңіз! Енді <a href="../playground.html" style="color: #FFD700; text-decoration: underline;">Ойындық редакторына</a> барып өзіңіздің бағдарламаларын жазып сынап көріңіз.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 QazCode. MIT Лицензиясы</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
