@@ -1,0 +1,185 @@
+/* QazCode 主题配色系统 */
+
+:root {
+    /* 哈萨克国旗颜色 */
+    --primary-color: #00AF66;      /* 绿色 - 希望与和平 */
+    --primary-dark: #008f53;       /* 深绿 */
+    --primary-light: #4dd0a1;      /* 浅绿 */
+    
+    /* 补充色 */
+    --secondary-color: #FFD700;    /* 金色 - 太阳与财富 */
+    --accent-color: #FF6B6B;       /* 红色 - 活力 */
+    
+    /* 中性色 */
+    --bg-dark: #1a1a1a;            /* 深灰背景 */
+    --bg-light: #f5f5f5;           /* 浅灰背景 */
+    --bg-white: #ffffff;           /* 纯白 */
+    
+    --text-dark: #2d3436;          /* 深灰文字 */
+    --text-light: #636e72;         /* 浅灰文字 */
+    --text-white: #ffffff;         /* 白色文字 */
+    
+    /* 状态颜色 */
+    --success-color: #27ae60;      /* 成功绿 */
+    --error-color: #e74c3c;        /* 错误红 */
+    --warning-color: #f39c12;      /* 警告橙 */
+    --info-color: #3498db;         /* 信息蓝 */
+    
+    /* 代码编辑器配色 */
+    --editor-bg: #2d2d2d;
+    --editor-text: #f8f8f2;
+    --editor-keyword: #66d9ef;
+    --editor-string: #a1efe4;
+    --editor-number: #ae81ff;
+    --editor-comment: #75715e;
+    
+    /* 间距 */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* 圆角 */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* 阴影 */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.2);
+    
+    /* 过渡 */
+    --transition: all 0.3s ease;
+}
+
+/* 深色主题支持 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-light: #2d2d2d;
+        --text-dark: #f0f0f0;
+        --text-light: #b0b0b0;
+    }
+}
+
+/* 通用样式类 */
+.text-primary {
+    color: var(--primary-color);
+}
+
+.text-success {
+    color: var(--success-color);
+}
+
+.text-error {
+    color: var(--error-color);
+}
+
+.text-warning {
+    color: var(--warning-color);
+}
+
+.text-info {
+    color: var(--info-color);
+}
+
+.bg-primary {
+    background-color: var(--primary-color);
+}
+
+.bg-light {
+    background-color: var(--bg-light);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-lg);
+    transition: var(--transition);
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.alert {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.alert-success {
+    background-color: rgba(39, 174, 96, 0.1);
+    border-left: 4px solid var(--success-color);
+    color: var(--success-color);
+}
+
+.alert-error {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-left: 4px solid var(--error-color);
+    color: var(--error-color);
+}
+
+.alert-warning {
+    background-color: rgba(243, 156, 18, 0.1);
+    border-left: 4px solid var(--warning-color);
+    color: var(--warning-color);
+}
+
+.alert-info {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 4px solid var(--info-color);
+    color: var(--info-color);
+}
+
+/* 代码块样式 */
+code {
+    background-color: var(--editor-bg);
+    color: var(--editor-text);
+    padding: 0.2em 0.4em;
+    border-radius: var(--radius-sm);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+pre {
+    background-color: var(--editor-bg);
+    color: var(--editor-text);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+pre code {
+    background: none;
+    padding: 0;
+}
