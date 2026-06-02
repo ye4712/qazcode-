@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QazCode - Ойындық Редакторы</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .playground-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .editor-panel, .output-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 1.5rem;
+        }
+
+        .editor-panel h3, .output-panel h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+        }
+
+        #codeEditor {
+            width: 100%;
+            height: 450px;
+            font-size: 14px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+            background: var(--editor-bg);
+            color: var(--editor-text);
+        }
+
+        #output {
+            width: 100%;
+            height: 450px;
+            padding: 12px;
+            background: var(--editor-bg);
+            color: var(--editor-text);
+            border-radius: 6px;
+            border: 1px solid #444;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .button-group button {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .btn-run {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-run:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-clear {
+            background: #f39c12;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #e67e22;
+        }
+
+        .btn-example {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-example:hover {
+            background: #2980b9;
+        }
+
+        .examples-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--bg-light);
+            border-radius: 12px;
+        }
+
+        .examples-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .example-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 5px;
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .example-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .error {
+            color: var(--error-color);
+        }
+
+        .success {
+            color: var(--success-color);
+        }
+
+        .warning {
+            color: var(--warning-color);
+        }
+
+        @media (max-width: 1024px) {
+            .playground-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .editor-panel, .output-panel {
+                padding: 1rem;
+            }
+
+            #codeEditor, #output {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">🇰🇿 QazCode</a>
+            <ul class="nav-links">
+                <li><a href="index.html">🏠 Басты</a></li>
+                <li><a href="playground.html">🎮 Ойындық</a></li>
+                <li><a href="tutorials/basics.html">📚 Сабақтар</a></li>
+                <li><a href="docs/language-spec.md">📋 Құжаттау</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div style="background: var(--primary-color); color: white; padding: 2rem; text-align: center;">
+            <div class="container">
+                <h1 style="margin-bottom: 0.5rem;">🎮 Ойындық Редакторы</h1>
+                <p>Төмендегі өріске қазақша код жазыңыз және іске қосыңыз</p>
+            </div>
+        </div>
+
+        <div class="playground-container">
+            <!-- 编辑器面板 -->
+            <div class="editor-panel">
+                <h3>📝 Код Редакторы</h3>
+                <textarea id="codeEditor" placeholder='Мысалы:
+басып_шығару("Сәлем, Әлем!");
+х = 10;
+у = 20;
+басып_шығару(х + у);'></textarea>
+                <div class="button-group">
+                    <button class="btn-run" onclick="runCode()">▶️ Іске қосу</button>
+                    <button class="btn-clear" onclick="clearCode()">🗑️ Тазалау</button>
+                    <button class="btn-example" onclick="loadExample('hello')">💡 Мысал</button>
+                </div>
+
+                <!-- 示例库 -->
+                <div class="examples-section">
+                    <h3>📚 Мысалдар</h3>
+                    <button class="example-btn" onclick="loadExample('hello')">Сәлем</button>
+                    <button class="example-btn" onclick="loadExample('variables')">Айнымалылар</button>
+                    <button class="example-btn" onclick="loadExample('math')">Математика</button>
+                    <button class="example-btn" onclick="loadExample('conditions')">Шартта</button>
+                </div>
+            </div>
+
+            <!-- 输出面板 -->
+            <div class="output-panel">
+                <h3>📋 Нәтиже</h3>
+                <div id="output">
+                    <span style="color: var(--info-color);">💡 Нәтиже осында көрсетіледі...</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Құрылым</h4>
+                    <a href="index.html">Басты Беті</a>
+                    <a href="playground.html">Ойындық</a>
+                    <a href="tutorials/basics.html">Сабақтар</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Ресурстар</h4>
+                    <a href="docs/language-spec.md">Тілді Анықтамасы</a>
+                    <a href="https://github.com/ye4712/qazcode-">GitHub</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 QazCode. MIT Лицензиясы</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/interpreter.js"></script>
+    <script>
+        const examples = {
+            hello: `# Бірінші бағдарлама
+басып_шығару("Сәлем, Қазақстан!");`,
+            
+            variables: `# Айнымалыларды қолдану
+х = 5;
+у = 10;
+з = х + у;
+басып_шығару("Х = " + х);
+басып_шығару("У = " + у);
+басып_шығару("Қосынды = " + з);`,
+            
+            math: `# Математикалық операциялар
+а = 20;
+б = 4;
+басып_шығару("20 + 4 = " + (а + б));
+басып_шығару("20 - 4 = " + (а - б));
+басып_шығару("20 * 4 = " + (а * б));
+басып_шығару("20 / 4 = " + (а / б));`,
+            
+            conditions: `# Шартты операторлар
+х = 15;
+егер х > 10: басып_шығару("х үлкен!");
+егер х < 20: басып_шығару("х 20-дан аз!.");`
+        };
+
+        function runCode() {
+            const code = document.getElementById("codeEditor").value;
+            const outputDiv = document.getElementById("output");
+
+            if (!code.trim()) {
+                outputDiv.innerHTML = '<span class="error">❌ Әйтіңіз, кодты жазыңыз!</span>';
+                return;
+            }
+
+            const interpreter = new QazCodeInterpreter();
+            const result = interpreter.run(code);
+
+            if (result.length === 0) {
+                outputDiv.innerHTML = '<span class="success">✓ Код орындалды (шығын жоқ)</span>';
+            } else {
+                outputDiv.innerHTML = result.join('<br>');
+            }
+        }
+
+        function clearCode() {
+            document.getElementById("codeEditor").value = '';
+            document.getElementById("output").innerHTML = '<span style="color: var(--info-color);">💡 Нәтиже тазаланды...</span>';
+        }
+
+        function loadExample(name) {
+            if (examples[name]) {
+                document.getElementById("codeEditor").value = examples[name];
+                runCode();
+            }
+        }
+
+        // Ctrl+Enter shortcut
+        document.getElementById("codeEditor").addEventListener("keydown", function(e) {
+            if (e.ctrlKey && e.key === "Enter") {
+                runCode();
+            }
+        });
+
+        // Load default example
+        window.addEventListener("load", function() {
+            loadExample("hello");
+        });
+    </script>
+</body>
+</html>
